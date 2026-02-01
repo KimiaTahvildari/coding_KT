@@ -1,0 +1,32 @@
+# -----------------------------
+# Data (PTB-XL and derivatives)
+# -----------------------------
+data/
+ptbxl/
+*.hea
+*.dat
+
+# -----------------------------
+# Python virtual environment
+# -----------------------------
+ptbxl_env/
+venv/
+__pycache__/
+*.pyc
+
+# -----------------------------
+# Experiment outputs
+# -----------------------------
+checkpoints/
+logs/
+results/
+*.pt
+*.pth
+
+# -----------------------------
+# OS / Editor junk
+# -----------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
