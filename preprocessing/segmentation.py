@@ -1,5 +1,5 @@
 # preprocessing/segmentation.py
-
+# this module is for choosing the leads (segments )
 import wfdb
 import numpy as np
 from .noise_removal_preprocess import apply_filter_multilead

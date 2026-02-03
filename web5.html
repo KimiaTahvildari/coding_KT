@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Atrial Fibrillation Platform</title>
+
+<style>
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    margin: 0;
+    color: #333;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(90deg, #b31217, #e52d27);
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+}
+
+.header-ecg {
+    width: 100%;
+    height: 80px;
+    margin-top: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ecg-track {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    animation: moveECG 3s linear infinite;
+}
+
+@keyframes moveECG {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.ecg-line {
+    stroke: white;
+    stroke-width: 3;
+    fill: none;
+}
+
+/* LAYOUT */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+}
+
+.tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.tab {
+    flex: 1;
+    padding: 15px;
+    background: #eee;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tab.active {
+    background: #e52d27;
+    color: white;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+}
+
+/* FORM */
+h2 { color: #b31217; }
+
+input, select, textarea, button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #e52d27;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 18px;
+}
+
+button:hover { background: #b31217; }
+
+/* RESULTS */
+.result {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.success { background: #e8f5e9; color: #1b5e20; }
+.warning { background: #ffebee; color: #b71c1c; }
+.info { background: #e3f2fd; color: #0d47a1; }
+
+.hidden { display: none; }
+
+footer {
+    text-align: center;
+    color: #ccc;
+    font-size: 12px;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🧠❤️ AI-Powered Atrial Fibrillation Platform</h1>
+<p>From AI engineering to patient care — intelligently connected</p>
+
+<!-- REAL CONTINUOUS ECG -->
+<div class="header-ecg">
+    <div class="ecg-track">
+        <svg viewBox="0 0 2000 100" preserveAspectRatio="none">
+            <polyline class="ecg-line"
+                points="
+                0,50 80,50
+                100,45 120,50 140,50
+                160,60 170,20 180,80 190,50
+                210,45 250,50
+                350,50
+
+                370,45 390,50 410,50
+                430,60 440,20 450,80 460,50
+                480,45 520,50
+                620,50
+
+                640,45 660,50 680,50
+                700,60 710,20 720,80 730,50
+                750,45 790,50
+                890,50
+
+                910,45 930,50 950,50
+                970,60 980,20 990,80 1000,50
+                1020,45 1060,50
+                1160,50
+
+                2000,50
+                "/>
+        </svg>
+    </div>
+</div>
+</header>
+
+<div class="container">
+
+<div class="tabs">
+    <div class="tab active" onclick="showTab('scientist')">💻 Data Scientist Portal</div>
+    <div class="tab" onclick="showTab('patient')">❤️ Patient Portal</div>
+</div>
+
+<!-- DATA SCIENTIST -->
+<div id="scientist" class="card">
+<h2>💻 Data Scientist Configuration Panel</h2>
+
+<label>Dataset</label>
+<input placeholder="MIT-BIH Atrial Fibrillation Database">
+
+<label>Signal Window Length (seconds)</label>
+<input type="number" placeholder="5">
+
+<label>Sampling Frequency (Hz)</label>
+<input type="number" placeholder="360">
+
+<label>Preprocessing</label>
+<select>
+    <option>Band-pass Filtering</option>
+    <option>Normalization</option>
+    <option>Wavelet Transform</option>
+</select>
+
+<label>Model</label>
+<select>
+    <option>1D CNN</option>
+    <option>CNN + LSTM</option>
+    <option>Transformer</option>
+</select>
+
+<label>Metrics</label>
+<select multiple>
+    <option>Accuracy</option>
+    <option>Precision</option>
+    <option>Recall</option>
+    <option>F1-score</option>
+    <option>AUC</option>
+</select>
+
+<button onclick="runTraining()">🚀 Run Training Pipeline</button>
+<div id="dsResult"></div>
+</div>
+
+<!-- PATIENT -->
+<div id="patient" class="card hidden">
+<h2>❤️ Patient Health Assessment</h2>
+
+<textarea rows="4" placeholder="Describe symptoms, palpitations, fatigue, mood..."></textarea>
+
+<label>Previous atrial fibrillation?</label>
+<select id="history">
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+</select>
+
+<label>Feeling persistent sadness or anxiety?</label>
+<select id="mood">
+    <option value="no">No</option>
+    <option value="yes">Yes</option>
+</select>
+
+<button onclick="analyzePatient()">💙 Analyze My Condition</button>
+
+<div id="patientResult"></div>
+
+<div id="signalUpload" class="hidden">
+    <input type="file">
+    <button onclick="runInference()">📈 Run AI Inference</button>
+</div>
+
+<div id="finalResult"></div>
+</div>
+
+</div>
+
+<footer>
+⚠️ Educational & research prototype — not a medical diagnostic system
+</footer>
+
+<script>
+function showTab(tab) {
+    document.getElementById("scientist").classList.add("hidden");
+    document.getElementById("patient").classList.add("hidden");
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.getElementById(tab).classList.remove("hidden");
+    event.target.classList.add("active");
+}
+
+function runTraining() {
+    const r = document.getElementById("dsResult");
+    r.className = "result info";
+    r.innerHTML = "✔ Training complete<br>Accuracy: 92.3%<br>AUC: 0.94<br>Model deployed.";
+}
+
+function analyzePatient() {
+    const h = document.getElementById("history").value;
+    const m = document.getElementById("mood").value;
+    const r = document.getElementById("patientResult");
+    const u = document.getElementById("signalUpload");
+    u.classList.add("hidden");
+
+    if (m === "yes") {
+        r.className = "result info";
+        r.innerHTML = "🧠 Psychologist consultation recommended 💙";
+    } else if (h === "yes") {
+        r.className = "result warning";
+        r.innerHTML = "❤️ Cardiologist consultation recommended. Upload ECG.";
+        u.classList.remove("hidden");
+    } else {
+        r.className = "result success";
+        r.innerHTML = "🌟 You’re doing great! Stay healthy and positive 😊";
+    }
+}
+
+function runInference() {
+    const r = document.getElementById("finalResult");
+    r.className = "result warning";
+    r.innerHTML = "📊 AF patterns detected<br>📨 Results sent to cardiologist<br>💪 You’re in good hands!";
+}
+</script>
+
+</body>
+</html>

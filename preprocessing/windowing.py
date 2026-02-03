@@ -1,4 +1,5 @@
 # preprocessing/windowing.py
+# this module is for cut signal into fixed-length chunks
 
 def extract_windows(ecg, label, window_samples):
     windows, labels = [], []

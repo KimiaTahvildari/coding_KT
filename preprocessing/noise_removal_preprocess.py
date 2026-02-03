@@ -24,8 +24,6 @@ def high_pass_filter(signal, fs, cutoff=0.5, order=4):
     b, a = butter(order, normal_cutoff, btype='high')
     return filtfilt(b, a, signal)
 
-
-
 def band_pass_filter(signal, fs, lowcut=0.5, highcut=40, order=4):
     nyq = 0.5 * fs
     b, a = butter(order, [lowcut/nyq, highcut/nyq], btype="band")
