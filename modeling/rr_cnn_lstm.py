@@ -32,8 +32,7 @@ class RRCNNLSTM(nn.Module):
         x shape: (batch, seq_len)
         """
 
-        # (batch, 1, seq_len)
-        x = x.unsqueeze(1)
+        
 
         # CNN
         x = self.conv1(x)
