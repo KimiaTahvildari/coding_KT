@@ -1,3 +1,4 @@
+# This is the script for R peak detection using multiple packages and llibraries 
 import neurokit2 as nk
 import wfdb.processing as wp
 from biosppy.signals import ecg as biosppy_ecg
