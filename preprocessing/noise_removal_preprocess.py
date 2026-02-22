@@ -34,3 +34,10 @@ def apply_filter_multilead(ecg, fs):
     for lead in range(ecg.shape[0]):
         filtered[lead] = band_pass_filter(ecg[lead], fs)
     return filtered
+
+def apply_notch_filter(signal_data, notch_freq=60.0, fs=360.0, Q=30.0):
+    nyq = 0.5 * fs
+    w0 = notch_freq / nyq
+    b, a = signal.iirnotch(w0, Q)
+    filtered_signal = signal.filtfilt(b, a, signal_data)
+    return filtered_signal

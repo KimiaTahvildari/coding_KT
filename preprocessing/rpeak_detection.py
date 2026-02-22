@@ -3,7 +3,7 @@ import neurokit2 as nk
 import wfdb.processing as wp
 from biosppy.signals import ecg as biosppy_ecg
 from scipy.signal import butter, filtfilt, find_peaks
-import
+
 
 FS = 500
 def rpeaks_neurokit(ecg, fs=FS):
@@ -74,3 +74,8 @@ def detect_rpeaks(ecg, fs=FS, method="neurokit"):
 # -------------------------------
 #usage example
 #r_peaks = detect_rpeaks(lead_ii, method="neurokit")
+
+#rr interval 
+#def segment_rr_intervals(r_peaks, fs):
+    #rr_intervals = np.diff(r_peaks) / fs  # in seconds
+    #return rr_intervals
